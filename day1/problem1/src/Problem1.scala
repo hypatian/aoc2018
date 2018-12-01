@@ -7,6 +7,7 @@ object Problem1 {
       System.exit(-1)
     }
     val filename = args(0)
+
     println(Source.fromFile(filename).getLines.map(_.toInt).sum)
 
   }

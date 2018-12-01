@@ -6,15 +6,15 @@ object Problem2 {
       println("Usage: mill day1.problem2.run FILENAME")
       System.exit(-1)
     }
-
     val filename = args(0)
-    def deltas = Iterator.continually {
+
+    def deltas = Iterator.continually({
       Source.fromFile(filename).getLines.map(_.toInt)
-    }.flatten
+    }).flatten
     def sums = deltas.scanLeft(0)(_ + _)
     def seen = sums.scanLeft(Set.empty)(_ + _)
-    def dups = (seen zip sums).filter(_ contains _).map(_._2)
+    def dups = (seen zip sums).filter(_ contains _).map((_, sum) => sum)
     println(dups.next())
-  }
 
+  }
 }
