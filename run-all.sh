@@ -10,3 +10,5 @@ function run {
 
 run 1 1 day1/input.txt
 run 1 2 day1/input.txt
+run 2 1 day2/input.txt
+run 2 2 day2/input.txt

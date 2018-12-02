@@ -17,3 +17,10 @@ from the build tool.
 mill day1.problem1.run day1/input.txt
 mill day1.problem2.run day1/input.txt
 ```
+
+## Day 2
+
+```sh
+mill day2.problem1.run day2/input.txt
+mill day2.problem2.run day2/input.txt
+```
