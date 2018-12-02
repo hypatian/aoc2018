@@ -17,7 +17,7 @@ instead of things like this:
 
 ```scala
     def seen = sums.scanLeft(Set.empty)({ case (a, b) => a + b })
-    def dups = (seen zip sums).filter(_ contains _).map({ case (_, sum) => sum })
+    def dups = (seen zip sums).filter({ case (a, b) => a contains b }).map({ case (_, sum) => sum })
 ```
 
 ## Building and Running
