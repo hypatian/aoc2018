@@ -23,24 +23,7 @@ instead of things like this:
 ## Building and Running
 
 You'll need a Java runtime installed. You'll also need the
-[Mill](http://www.lihaoyi.com/mill/) build tool installed. Once you have
-these, you should be able to build and run the individual days' code
-like `mill day<n>.problem<n>.run [OPTIONS]`. See below for how each
-day's problems should be run.
-
-You may wish to redirect standard error to `/dev/null` to avoid output
-from the build tool.
-
-## Day 1
-
-```sh
-mill day1.problem1.run day1/input.txt
-mill day1.problem2.run day1/input.txt
-```
-
-## Day 2
-
-```sh
-mill day2.problem1.run day2/input.txt
-mill day2.problem2.run day2/input.txt
-```
+[Mill](http://www.lihaoyi.com/mill/) build tool installed. Once you
+have these, you should be able to build and run the individual days'
+code like `mill day<n>.run`, or you can run all of them with `mill
+_.run`.
