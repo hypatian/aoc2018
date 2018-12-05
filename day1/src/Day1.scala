@@ -1,25 +1,19 @@
-import scala.io.Source
+package org.hypatian.demo.aoc2018
 
-object Day1 {
+import org.hypatian.demo.aoc.AoCBase
 
-  def data: Iterator[Int] =
-    Source.fromFile("day1/input.txt").getLines.map(_.toInt)
+object Day1 extends AoCBase(1) {
 
-  def problem1(): Unit =
-    println(s"  Problem 1 solution: ${data.sum}")
+  def data: Iterator[Int] = rawData.map(_.toInt)
 
-  def problem2(): Unit = {
+  def problem1() = println(data.sum)
+
+  def problem2() = {
     def deltas = Iterator.continually(data).flatten
     def sums = deltas.scanLeft(0)(_ + _)
     def seen = sums.scanLeft(Set.empty)(_ + _)
     def dups = (seen zip sums).filter(_ contains _).map((_, sum) => sum)
-    println(s"  Problem 2 solution: ${dups.next}")
-  }
-
-  def main(args: Array[String]): Unit = {
-    println("Day 1:")
-    problem1()
-    problem2()
+    println(dups.next)
   }
 
 }

@@ -1,8 +1,16 @@
 import mill._, scalalib._
 
-trait AocModule extends ScalaModule {
+trait MyScalaModule extends ScalaModule {
   def scalaVersion = "0.11.0-RC1"
   def scalacOptions = Seq("-deprecation", "-feature")
+}
+
+object aocbase extends MyScalaModule {
+  def run(args: String*) = T.command { }
+}
+
+trait AocModule extends MyScalaModule {
+  def moduleDeps = Seq(aocbase)
 }
 
 object day1 extends AocModule

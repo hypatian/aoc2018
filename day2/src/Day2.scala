@@ -1,21 +1,22 @@
-import scala.io.Source
+package org.hypatian.demo.aoc2018
 
-object Day2 {
+import org.hypatian.demo.aoc.AoCBase
 
-  def data: Stream[String] =
-    Source.fromFile("day2/input.txt").getLines.toStream
+object Day2 extends AoCBase(2) {
 
-  def problem1(): Unit = {
+  def data: Stream[String] = rawData.toStream
+
+  def problem1() = {
     implicit class StringHasNDups(self: String) {
       def hasExactlyNDuplicates(n: Int): Boolean =
         self.groupBy(identity).exists((_, v) => v.size == n)
     }
     val has2Count = data.count(_.hasExactlyNDuplicates(2))
     val has3Count = data.count(_.hasExactlyNDuplicates(3))
-    println(s"  Problem 1 solution: ${has2Count * has3Count}")
+    println(has2Count * has3Count)
   }
 
-  def problem2(): Unit = {
+  def problem2() = {
     implicit class StringDropIndex(self: String) {
       def dropIndex(n: Int): String = self.take(n) ++ self.drop(n + 1)
     }
@@ -27,13 +28,7 @@ object Day2 {
       idsDropOne.groupBy(identity).filter((_, v) => v.size == 2).keySet
 
     assert(matches.size == 1)
-    println(s"  Problem 2 solution: ${matches.head}")
-  }
-
-  def main(args: Array[String]): Unit = {
-    println("Day 2:")
-    problem1()
-    problem2()
+    println(matches.head)
   }
 
 }

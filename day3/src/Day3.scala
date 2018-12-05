@@ -1,6 +1,8 @@
-import scala.io.Source
+package org.hypatian.demo.aoc2018
 
-object Day3 {
+import org.hypatian.demo.aoc.AoCBase
+
+object Day3 extends AoCBase(3) {
 
   case class Claim(id: Int, x: Int, y: Int, w: Int, h: Int)
   object Claim {
@@ -25,27 +27,20 @@ object Day3 {
     }
   }
 
-  def data: Iterator[Claim] =
-    Source.fromFile("day3/input.txt").getLines.map(Claim(_))
+  def data: Iterator[Claim] = rawData.map(Claim(_))
 
-  def problem1(): Unit = {
+  def problem1() = {
     val fabric = new Fabric
     for ( claim <- data ) fabric.incr(claim)
-    println(s"  Problem 1 solution: ${fabric.data.count(_ > 1)}")
+    println(fabric.data.count(_ > 1))
   }
 
-  def problem2(): Unit = {
+  def problem2() = {
     val fabric = new Fabric
     for ( claim <- data ) fabric.incr(claim)
     for ( claim <- data )
       if ( fabric.check(claim) )
-        println(s"  Problem 2 solution: ${claim.id}")
-  }
-
-  def main(args: Array[String]): Unit = {
-    println("Day 3:")
-    problem1()
-    problem2()
+        println(claim.id)
   }
 
 }

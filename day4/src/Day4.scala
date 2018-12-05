@@ -1,13 +1,13 @@
-import scala.io.Source
+package org.hypatian.demo.aoc2018
+
+import org.hypatian.demo.aoc.AoCBase
 import scala.collection.mutable.{IndexedSeq, Map}
 
-object Day4 {
+object Day4 extends AoCBase(4) {
 
   val BeginsShift = """\[[^\]]+\] Guard #(\d+) begins shift""".r
   val FallsAsleep = """\[[^:]+:(\d\d)\] falls asleep""".r
   val WakesUp     = """\[[^:]+:(\d\d)\] wakes up""".r
-
-  def data = Source.fromFile("day4/input.txt").getLines
 
   type GuardId = Int
   type Shift = Seq[Boolean]
@@ -16,7 +16,7 @@ object Day4 {
     val guardShifts: Map[GuardId, Seq[Shift]] = Map.empty
     var fellAsleep = -1
     var shift = IndexedSeq.empty[Boolean]
-    for ( s <- data.toSeq.sorted ) s match {
+    for ( s <- rawData.toSeq.sorted ) s match {
       case BeginsShift(id) =>
         fellAsleep = -1
         shift = IndexedSeq.fill(60)(false)
@@ -41,7 +41,7 @@ object Day4 {
     } yield minute).groupBy(identity).mapValues(_.count(_ => true)).
       toSeq.map((minute, count) => (count, minute))
     val sleepiestMinute = minuteSleepiness.sorted.last._2
-    println(s"  Problem 1 solution: ${sleepiestGuardId * sleepiestMinute}")
+    println(sleepiestGuardId * sleepiestMinute)
   }
 
   def problem2(): Unit = {
@@ -54,13 +54,7 @@ object Day4 {
       guardSleepMinutes.groupBy(identity).mapValues(_.count(_ => true)).
         toSeq.sorted(Ordering.by((_, repeats) => repeats)).last._1
     val (guardId, minute) = biggestGuardMinute
-    println(s"  Problem 2 solution: ${guardId * minute}")
-  }
-
-  def main(args: Array[String]): Unit = {
-    println("Day 4:")
-    problem1()
-    problem2()
+    println(guardId * minute)
   }
 
 }
