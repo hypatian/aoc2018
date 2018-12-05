@@ -41,7 +41,7 @@ object Day4 extends AoCBase(4) {
     } yield minute).groupBy(identity).mapValues(_.count(_ => true)).
       toSeq.map((minute, count) => (count, minute))
     val sleepiestMinute = minuteSleepiness.sorted.last._2
-    println(sleepiestGuardId * sleepiestMinute)
+    print(sleepiestGuardId * sleepiestMinute)
   }
 
   def problem2(): Unit = {
@@ -54,7 +54,7 @@ object Day4 extends AoCBase(4) {
       guardSleepMinutes.groupBy(identity).mapValues(_.count(_ => true)).
         toSeq.sorted(Ordering.by((_, repeats) => repeats)).last._1
     val (guardId, minute) = biggestGuardMinute
-    println(guardId * minute)
+    print(guardId * minute)
   }
 
 }

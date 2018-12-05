@@ -10,12 +10,21 @@ trait AoCBase(val day: Int) {
   def problem2(): Unit
 
   def main(args: Array[String]) = {
+
+    def time[T](body: => T): T = {
+      val t0 = System.currentTimeMillis
+      val r = body
+      val t1 = System.currentTimeMillis
+      println(s" (in ${t1 - t0}ms)")
+      r
+    }
+
     if ( args.length == 1 ) filename = args(0)
     println(s"Day ${day}:")
     print(s"  Problem 1 solution: ")
-    problem1()
+    time(problem1())
     print(s"  Problem 2 solution: ")
-    problem2()
+    time(problem2())
   }
 
 }

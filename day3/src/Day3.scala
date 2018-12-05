@@ -32,7 +32,7 @@ object Day3 extends AoCBase(3) {
   def problem1() = {
     val fabric = new Fabric
     for ( claim <- data ) fabric.incr(claim)
-    println(fabric.data.count(_ > 1))
+    print(fabric.data.count(_ > 1))
   }
 
   def problem2() = {
@@ -40,7 +40,7 @@ object Day3 extends AoCBase(3) {
     for ( claim <- data ) fabric.incr(claim)
     for ( claim <- data )
       if ( fabric.check(claim) )
-        println(claim.id)
+        print(claim.id)
   }
 
 }

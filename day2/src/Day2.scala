@@ -13,7 +13,7 @@ object Day2 extends AoCBase(2) {
     }
     val has2Count = data.count(_.hasExactlyNDuplicates(2))
     val has3Count = data.count(_.hasExactlyNDuplicates(3))
-    println(has2Count * has3Count)
+    print(has2Count * has3Count)
   }
 
   def problem2() = {
@@ -28,7 +28,7 @@ object Day2 extends AoCBase(2) {
       idsDropOne.groupBy(identity).filter((_, v) => v.size == 2).keySet
 
     assert(matches.size == 1)
-    println(matches.head)
+    print(matches.head)
   }
 
 }
