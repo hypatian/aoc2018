@@ -32,14 +32,11 @@ object Day5 extends AoCBase(5) {
   }
 
   def problem2() = {
-    // With buf pre-reduced by problem1
     val base = react(data)
     val reagents = base.map(_.toLower).distinct
     val reagentLengths =
-      for ( r <- reagents ) yield {
-        var u = r.toUpper
-        react(base.filterNot(x => x == r || x == u)).size
-      }
+      for ( r <- reagents )
+        yield react(base.filterNot(x => x == r || x == pair(r))).size
     print(reagentLengths.min)
   }
 
