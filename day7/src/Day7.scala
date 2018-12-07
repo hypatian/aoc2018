@@ -8,19 +8,18 @@ object Day7 extends AoCBase(7) {
 
   val stepPat =
     """Step ([A-Z]) must be finished before step ([A-Z]) can begin.""".r
-  val data = rawData.map({ case stepPat(a, b) => (a(0), b(0)) }).toSeq
 
-  val deps = data.groupBy(_._2).mapValues(_.map(_._1))
+  val deps =
+    rawData.map({ case stepPat(pre, post) => (pre(0), post(0)) }).toSeq
+      .groupBy((pre, post) => post).mapValues(_.map((pre, post) => pre).toSet)
 
   val steps = SortedSet.empty[Char] ++ ('A' to 'Z')
 
   def problem1() = {
     var done = Set.empty[Char]
     def remaining = steps -- done
-    def ready = for {
-      s <- remaining
-      if (deps.get(s).getOrElse(Seq.empty).toSet -- done).isEmpty
-    } yield s
+    def isReady(s: Char) = (deps.getOrElse(s, Set.empty) -- done).isEmpty
+    def ready = remaining.filter(isReady)
     while ( remaining.nonEmpty ) {
       val next = ready.firstKey
       done += next
@@ -31,20 +30,18 @@ object Day7 extends AoCBase(7) {
   def problem2() = {
     var done = Set.empty[Char]
     var working = PriorityQueue.empty(Ordering[(Int, Char)].reverse)
-    def remaining = steps -- done -- working.map(_._2)
-    def ready = for {
-      s <- remaining
-      if (deps.get(s).getOrElse(Seq.empty).toSet -- done).isEmpty
-    } yield s
-    var maxT = 0
+    def remaining = steps -- done -- working.map((t, s) => s)
+    def isReady(s: Char) = (deps.getOrElse(s, Set.empty) -- done).isEmpty
+    def ready = remaining.filter(isReady)
     working ++= (steps -- deps.keys).map(s => (61 + s - 'A', s)).take(5)
+    var currentT = 0
     while ( working.nonEmpty ) {
       val (t, s) = working.dequeue()
       done += s
-      maxT = t
       working ++= ready.map(s => (t + 61 + s - 'A', s)).take(5 - working.size)
+      currentT = t
     }
-    print(maxT)
+    print(currentT)
   }
 
 }
