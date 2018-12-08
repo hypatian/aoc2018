@@ -27,10 +27,8 @@ object Day8 extends AoCBase(8) {
       val (rem2, children) = loop(nChildren, rem1, Seq.empty)
       (rem2.drop(nMetadata), Node(children, rem2.take(nMetadata)))
     }
-    def apply(input: Seq[Int]): Node = {
-      val (remainder, node) = parse(input)
-      assert(remainder.size == 0)
-      node
+    def apply(input: Seq[Int]): Node = parse(input) match {
+      case (Seq(), node) => node
     }
   }
 
