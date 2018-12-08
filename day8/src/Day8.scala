@@ -6,8 +6,6 @@ import scala.language.implicitConversions
 
 object Day8 extends AoCBase(8) {
 
-  val data = Node(rawData.next.split(' ').toSeq.map(_.toInt))
-
   case class Node(children: Seq[Node], metadata: Seq[Int]) {
     def metadataSum: Int = metadata.sum + children.map(_.metadataSum).sum
     def value: Int =
@@ -27,6 +25,8 @@ object Day8 extends AoCBase(8) {
       case (Seq(), Seq(node)) => node
     }
   }
+
+  val data = Node(rawData.next.split(' ').toSeq.map(_.toInt))
 
   def problem1() = print(data.metadataSum)
 
