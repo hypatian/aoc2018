@@ -3,6 +3,7 @@ import mill._, scalalib._
 trait MyScalaModule extends ScalaModule {
   def scalaVersion = "0.11.0-RC1"
   def scalacOptions = Seq("-deprecation", "-feature")
+  def forkArgs = Seq("-Xmx16g")
 }
 
 object aocbase extends MyScalaModule {
@@ -21,3 +22,4 @@ object day5 extends AocModule
 object day6 extends AocModule
 object day7 extends AocModule
 object day8 extends AocModule
+object day9 extends AocModule
