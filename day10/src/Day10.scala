@@ -45,10 +45,9 @@ object Day10 extends AoCBase(10) {
 
   def problem1() = {
     val Some(tGoal, pGoal) =
-      Stream.from(0).map({ t => (t, p0.zip(v).map(_ + _ * t)) }).sliding(2).
+      Stream.from(0).map(t => (t, p0.zip(v).map(_ + _ * t))).sliding(2).
         collectFirst({
-          case Stream((t1, pt1), (t2, pt2))
-              if pt2.height > pt1.height => (t1, pt1)
+          case Stream((ta, pa), (tb, pb)) if pb.height > pa.height => (ta, pa)
         })
     println()
     println(pGoal.plot)
