@@ -120,7 +120,7 @@ object Day15 extends AoCBase(15) {
         i += 1
       }
     } catch {
-      case Done(s) => ()
+      case Done(finalS) => s = finalS
     }
     val finElves = s.count(_.k == Kind.Elf)
     (s, i, finElves < initElves)
