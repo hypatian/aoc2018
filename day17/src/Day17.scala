@@ -5,31 +5,8 @@ import scala.collection.mutable.{IndexedSeq => MIndexedSeq}
 
 object Day17 extends AoCBase(17) {
 
-  case class Position(x: Int, y: Int)
-
   type Grid[T] = IndexedSeq[IndexedSeq[T]]
   type MGrid[T] = MIndexedSeq[MIndexedSeq[T]]
-  private[this] implicit class GridOps[T](self: Grid[T]) {
-    def height: Int = self.size
-    def width: Int = self(0).size
-    def positions: Iterator[Position] = for {
-      y <- self.indices.iterator
-      x <- self(0).indices
-    } yield Position(x, y)
-    def apply(p: Position): T = self(p.y)(p.x)
-    def mapCells[U](f: T => U): Grid[U] = self.map(_.map(f))
-    val zipWithPosition: Iterator[Iterator[(T, Position)]] = for {
-      (r, y) <- self.iterator.zipWithIndex
-    } yield for {
-      (v, x) <- r.iterator.zipWithIndex
-    } yield (v, Position(x, y))
-    def mutable: MGrid[T] = self.map(_.to[MIndexedSeq]).to[MIndexedSeq]
-  }
-  private[this] implicit class MGridOps[T](self: MGrid[T]) {
-    def update(p: Position, v: T): Unit = self(p.y)(p.x) = v
-  }
-
-////////////////////////////////////////////////////////////////////////
 
   val SAND: Byte = 0
   val DAMP: Byte = 1
@@ -44,8 +21,6 @@ object Day17 extends AoCBase(17) {
       case WATER => '~'
     }).mkString("") + (if ( y < minY || y > maxY ) " [NC]" else ""))
   }
-
-////////////////////////////////////////////////////////////////////////
 
   val yRangePat = """x=(\d+), y=(\d+)\.\.(\d+)""".r
   val xRangePat = """y=(\d+), x=(\d+)\.\.(\d+)""".r
