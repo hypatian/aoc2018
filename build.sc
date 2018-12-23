@@ -35,3 +35,5 @@ object day18 extends AocModule
 object day19 extends AocModule
 object day20 extends AocModule
 object day21 extends AocModule
+object day22 extends AocModule
+object day23 extends AocModule
